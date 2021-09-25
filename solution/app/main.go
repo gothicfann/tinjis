@@ -35,8 +35,6 @@ func ChargeInvoice(c *gin.Context) {
 		panic(err)
 	}
 
-	fmt.Println(string(bs))
-
 	var i Invoice
 	err = json.Unmarshal(bs, &i)
 	if err != nil {
