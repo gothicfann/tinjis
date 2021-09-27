@@ -17,20 +17,20 @@ This solution is for demo purposes. I have not used any advanced topics here.
     apiVersion: networking.k8s.io/v1
     kind: NetworkPolicy
     metadata:
-    name: payment
+      name: payment
     spec:
       podSelector:
         matchLabels:
           app: payment
       policyTypes:
-      - Ingress
+        - Ingress
       ingress:
-      - from:
-          - podSelector:
-              matchLabels:
-                app: antaeus
+        - from:
+            - podSelector:
+                matchLabels:
+                  app: antaeus
           ports:
-          - protocol: TCP
-            port: 8080
+            - protocol: TCP
+              port: 8080
     ```
     In this case only antaeus pods will be able to access payment on port 8080.
