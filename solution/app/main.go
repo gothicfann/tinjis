@@ -32,7 +32,8 @@ func ChargeInvoice(c *gin.Context) {
 			"status_code": http.StatusInternalServerError,
 			"message":     "could not read request body",
 		})
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 
 	var i Invoice
