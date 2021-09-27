@@ -20,8 +20,8 @@ This solution is for demo purposes. I have not used any advanced topics here.
     name: payment
     spec:
       podSelector:
-          matchLabels:
-          app: payment
+        matchLabels:
+        app: payment
       policyTypes:
       - Ingress
       ingress:
