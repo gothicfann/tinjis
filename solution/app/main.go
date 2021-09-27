@@ -32,8 +32,7 @@ func ChargeInvoice(c *gin.Context) {
 			"status_code": http.StatusInternalServerError,
 			"message":     "could not read request body",
 		})
-		fmt.Println(err)
-		return
+		panic(err)
 	}
 
 	var i Invoice
@@ -56,7 +55,8 @@ func ChargeInvoice(c *gin.Context) {
 const listenAddr = "0.0.0.0:8080"
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Recovery())
 
 	r.GET("/ping", Ping)
 	r.POST("/", ChargeInvoice)
