@@ -21,16 +21,16 @@ This solution is for demo purposes. I have not used any advanced topics here.
     spec:
       podSelector:
         matchLabels:
-        app: payment
+          app: payment
       policyTypes:
       - Ingress
       ingress:
       - from:
           - podSelector:
               matchLabels:
-              app: antaeus
+                app: antaeus
           ports:
           - protocol: TCP
-          port: 8080
+            port: 8080
     ```
     In this case only antaeus pods will be able to access payment on port 8080.
