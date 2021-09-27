@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: antaeus
+  name: antaeus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: antaeus
+  template:
+    metadata:
+      labels:
+        app: antaeus
+    spec:
+      containers:
+        - image: gothicfan/pleo-antaeus
+          name: pleo-antaeus
+          ports:
+            - containerPort: 8000
+              name: antaeus
+          env:
+            - name: PAYMENT_PROVIDER_ENDPOINT
+              value: http://payment/
+          resources: {}
+          readinessProbe:
+            httpGet:
+              path: /rest/health
+              port: antaeus
+            failureThreshold: 10
+            periodSeconds: 30
+            successThreshold: 1
+          startupProbe:
+            httpGet:
+              path: /rest/health
+              port: antaeus
+            failureThreshold: 10
+            periodSeconds: 30
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /rest/health
+              port: antaeus
+            failureThreshold: 1
+            periodSeconds: 30
+            successThreshold: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: antaeus
+  name: antaeus
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: antaeus
+      nodePort: 32001
+  selector:
+    app: antaeus
+  type: NodePort
+
